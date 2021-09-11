@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import moviesAPI from '../api/moviesAPI';
-
-const getMovies = async () => {
-  try {
-    await moviesAPI.get('/now_playing');
-  } catch (error) {
-    console.log(error);
-  }
-};
+import React from 'react';
+import { View, Text, ActivityIndicator } from 'react-native';
+import { colors } from '../config';
+import { useMovies } from '../hooks/useMovies';
 
 export function Home() {
-  useEffect(() => {
-    getMovies();
-  }, []);
+  const { isLoading, nowPlaying } = useMovies();
+
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator color={colors.PRIMARY} size={100} />
+      </View>
+    );
+  }
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text>{nowPlaying[0].title}</Text>
     </View>
   );
 }

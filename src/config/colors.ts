@@ -1,3 +1,3 @@
 export enum colors {
-  DEFAULT = 'green',
+  PRIMARY = 'green',
 }
