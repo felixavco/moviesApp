@@ -9,7 +9,7 @@ import MovieList from '../components/MovieList';
 import MoviesCarousel from '../components/MoviesCarousel';
 
 export function Home() {
-  const { isLoading, nowPlaying } = useMovies();
+  const { isLoading, nowPlaying, popular, topRated, upcoming } = useMovies();
 
   const { top } = useSafeAreaInsets();
 
@@ -20,7 +20,9 @@ export function Home() {
     return (
       <>
         <MoviesCarousel movies={nowPlaying} />
-        <MovieList movies={nowPlaying} title="Hola" />
+        <MovieList movies={popular} title="Popular" />
+        <MovieList movies={topRated} title="Top Rated" />
+        <MovieList movies={upcoming} title="Upcoming" />
       </>
     );
   };
