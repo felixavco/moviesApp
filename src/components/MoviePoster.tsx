@@ -4,14 +4,22 @@ import { Movie } from '../interfaces/movie';
 
 interface Props {
   movie: Movie;
+  height?: number;
+  width?: number;
 }
 
-export default function MoviePoster({ movie }: Props) {
+export default function MoviePoster({
+  movie,
+  height = 420,
+  width = 300,
+}: Props) {
   const src = { uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` };
   const onPress = () => null;
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{ ...styles.container, height, width }}>
       <View style={styles.shadow}>
         <Image source={src} style={styles.image} />
       </View>
@@ -23,9 +31,8 @@ const borderRadius = 15;
 
 const styles = StyleSheet.create({
   container: {
-    width: 300,
-    height: 420,
     borderRadius,
+    marginHorizontal: 8,
   },
   image: {
     flex: 1,
@@ -33,7 +40,7 @@ const styles = StyleSheet.create({
   },
   shadow: {
     flex: 1,
-    elevation: 30,
+    elevation: 15,
     borderRadius,
     shadowRadius: 5,
     shadowColor: '#000',

@@ -1,36 +1,33 @@
 import React from 'react';
-import { View, ActivityIndicator, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, ActivityIndicator, ScrollView } from 'react-native';
 
 import { colors } from '../config';
 import { useMovies } from '../hooks/useMovies';
 
-import Carousel from 'react-native-snap-carousel';
-import MoviePoster from '../components/MoviePoster';
+import MovieList from '../components/MovieList';
+import MoviesCarousel from '../components/MoviesCarousel';
 
 export function Home() {
   const { isLoading, nowPlaying } = useMovies();
 
   const { top } = useSafeAreaInsets();
-  const { width: windowWidth } = Dimensions.get('window');
-
-  const renderItem = ({ item }: any) => <MoviePoster movie={item} />;
 
   const content = () => {
     if (isLoading) {
       return <ActivityIndicator color={colors.PRIMARY} size={100} />;
     }
     return (
-      <View style={{ height: 475 }}>
-        <Carousel
-          data={nowPlaying}
-          renderItem={renderItem}
-          sliderWidth={windowWidth}
-          itemWidth={300}
-        />
-      </View>
+      <>
+        <MoviesCarousel movies={nowPlaying} />
+        <MovieList movies={nowPlaying} title="Hola" />
+      </>
     );
   };
 
-  return <View style={{ marginTop: top + 25 }}>{content()}</View>;
+  return (
+    <ScrollView>
+      <View style={{ marginTop: top + 25 }}>{content()}</View>
+    </ScrollView>
+  );
 }
