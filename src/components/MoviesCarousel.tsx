@@ -10,7 +10,10 @@ interface Props {
 
 export default function MoviesCarousel({ movies }: Props) {
   const { width: windowWidth } = Dimensions.get('window');
-  const renderItem = ({ item }: any) => <MoviePoster movie={item} />;
+
+  const renderItem = ({ item }: { item: Movie }) => (
+    <MoviePoster movie={item} />
+  );
 
   return (
     <View style={styles.nowPlaying}>

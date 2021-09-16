@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, FlatList, View, Text } from 'react-native';
 import { Movie } from '../interfaces/movie';
 import MoviePoster from './MoviePoster';
@@ -8,9 +8,9 @@ interface Props {
   title: string;
 }
 
-export default function MovieList({ movies, title }: Props) {
+const MovieList = memo(({ movies, title }: Props) => {
   const keyStractor = (item: Movie) => item.id.toString();
-  const renderItem = ({ item }: any) => (
+  const renderItem = ({ item }: { item: Movie }) => (
     <MoviePoster movie={item} width={140} height={200} />
   );
 
@@ -26,7 +26,7 @@ export default function MovieList({ movies, title }: Props) {
       />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -40,3 +40,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+export default MovieList;

@@ -3,13 +3,18 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import { screens } from '../config';
 
 //@ Screens
 import { Details } from '../screens/Details';
 import { Home } from '../screens/Home';
+import { Movie } from '../interfaces/movie';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Details: { movie: Movie };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const screenOptions: StackNavigationOptions = {
   headerShown: false,
@@ -21,8 +26,8 @@ const screenOptions: StackNavigationOptions = {
 export function AppStack() {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name={screens.HOME} component={Home} />
-      <Stack.Screen name={screens.DETAILS} component={Details} />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
 }

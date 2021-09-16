@@ -1,7 +1,9 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Movie } from '../interfaces/movie';
-
+import { RootStackParamList } from '../navigation/Stack';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 interface Props {
   movie: Movie;
   height?: number;
@@ -10,11 +12,13 @@ interface Props {
 
 export default function MoviePoster({
   movie,
-  height = 420,
   width = 300,
+  height = 420,
 }: Props) {
+  const { navigate } = useNavigation<StackNavigationProp<RootStackParamList>>();
   const src = { uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` };
-  const onPress = () => null;
+  console.log('navigation', navigate);
+  const onPress = () => navigate('Details', { movie });
 
   return (
     <TouchableOpacity

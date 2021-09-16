@@ -1,10 +1,16 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text } from 'react-native';
+import { RootStackParamList } from '../navigation/Stack';
 
-export function Details() {
+type Props = NativeStackScreenProps<RootStackParamList, 'Details'>;
+
+export function Details({ route }: Props) {
+  // const route = useRoute<RouteProp<RootStackParamList, 'Details'>>();
+  const { title } = route.params.movie;
   return (
     <View>
-      <Text>Details</Text>
+      <Text>{title}</Text>
     </View>
   );
 }
